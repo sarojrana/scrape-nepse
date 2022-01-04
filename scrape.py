@@ -1,4 +1,5 @@
 import sys
+import time
 import pandas as pd
 
 from bs4 import BeautifulSoup
@@ -177,6 +178,10 @@ def main():
             print("Skipping the process for {}".format(company["symbol"]))
         else:
             save_company_trading_data(df=df, company=company, start_date=start_date, end_date=end_date)
+
+            # To prevent NEPSE or ISP from blocking your IP due to frequent requests
+            print("Sleeping for 15s to avoid DoS attack in NEPSE server")
+            time.sleep(15)
 
 
     print("\n NEPSE web scraping completed")
